@@ -6,15 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <script src="javascript/index.js" type="text/javascript"></script>
-    <title>bordspel super cool</title>
+    <title>Snakes & Ladders</title>
 </head>
 <body>
     <div class="container">
-        <div class="board">
+
+        <div class="winner"></div>
+        <div class="selectPlayers">
+            <div class="amountButton">2</div>
+            <div class="amountButton">3</div>
+            <div class="amountButton">4</div>
         </div>
-        <button id="twoPlayers">2 players</button>
-        <button id="threePlayers">3 players</button>
-        <button id="fourPlayers">4 players</button>
+
+        <div class="main">
+            <div class="ui">
+                <div class="roll"></div>
+                <div class="playerTurn"></div>
+            </div>
+
+            <div class="board">
+                <div class="tile">1</div>
+            </div>
+            
+            <div class="pawn pawn0"></div>
+            <div class="pawn pawn1"></div>
+            <div class="pawn pawn2"></div>
+            <div class="pawn pawn3"></div>
+            <div class="boardOverlay"></div>
+
+        </div>
     </div>
 </body>
 </html>
