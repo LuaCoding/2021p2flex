@@ -7,6 +7,7 @@ let game;
 
 class Player
 {
+    // fixed
     constructor(index)
     {
         this.index = index;
@@ -32,13 +33,13 @@ class Game
 {
     constructor()
     {
-        this.mainDiv = document.getElementsByClassName("main")[0];
-        this.boardDiv = document.getElementsByClassName("board")[0];
-        this.boardoverlayDiv = document.getElementsByClassName("boardoverlay")[0];
-        this.selectplayersDiv = document.getElementsByClassName("selectplayers")[0];
+        this.selectplayersDiv = document.getElementsByClassName("selectplayers")[0]; 
         this.winnerDiv = document.getElementsByClassName("winner")[0];
         this.playerturnDiv = document.getElementsByClassName("playerturn")[0];
         this.rollDiv = document.getElementsByClassName("roll")[0];
+        this.mainDiv = document.getElementsByClassName("main")[0];
+        this.boardDiv = document.getElementsByClassName("board")[0];
+        this.boardoverlayDiv = document.getElementsByClassName("boardoverlay")[0];
 
         this.tiles = [];
         this.playerturn = 0;
@@ -75,7 +76,7 @@ class Game
                 y--;
             }
 
-            let div = this.makeBoardDiv(x * tileSize, y * tileSize, i+1)
+            let div = this.makeBoardDiv(x * tileSize, y * tileSize, i + 1)
 
             let tile = new Tile(div);
             this.tiles.push(tile);
@@ -99,6 +100,7 @@ class Game
             tile.goto = end;
         }
     }
+
     start(amountOfPlayers)
     {
         this.selectplayersDiv.style.display = "none";
@@ -109,18 +111,18 @@ class Game
 
         for (var i = 0; i < pawns.length; i++)
         {
-            pawns[i].style.display="none";
-
+            pawns[i].style.display = "none";
         }
 
-        for (var i = 0; i < amountOfPlayers.length; i++)
+        this.player = [];
+
+        for (var i = 0; i < amountOfPlayers; i++)
         {
             let player = new Player(i);
             this.players.push(player);
         }
 
         this.playerturn = -1;
-
         this.moveToNextPlayer();
 
     }
@@ -132,27 +134,50 @@ class Game
         {
             this.playerturn = 0;
         }
+        this.playerturnDiv.textContent = "Turn: "+(this.playerturn+1);
 
         this.draw();
     }
     draw()
     {   
+        // ook gefixt
         for (var i = 0; i < this.players.length; i++)
         {
-            console.log("hi2");
             this.setPawn(i, this.players[i].atTile);
         }
     }
     roll()
     {
+        let rollAmount = Math.floor(Math.random()* 6) + 1;
+        this.rollDiv.style.backgroundImage = "url('./img/dice"+rollAmount+".png')";
 
+        let player = this.players[this.playerturn];
+        player.atTile += rollAmount;
+        if (player.atTile >= 49)
+        {
+            // winning
+            this.winnerDiv.style.display = "block";
+            this.winnerDiv.textContent = "Player"+(this.playerturn+1)+ " has won!";
+            this.mainDiv.style.display = "none";
+            return;
+        }
+        this.draw()
+
+        let tile = this.tiles[player.atTile];
+        if (tile.goto != -1)
+        {
+            player.atTile = tile.goto;
+            this.draw();
+        }
+        
+        this.moveToNextPlayer();
     }
     setPawn(playerI, atTile)
     {
         let tile = this.tiles[atTile];
         let player = this.players[playerI];
-        player.pawn.style.left = tile.div.style.left;
 
+        player.pawn.style.left = tile.div.style.left;
         player.pawn.style.top = tile.div.style.top;
 
     }
