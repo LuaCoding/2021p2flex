@@ -26,7 +26,7 @@ class Game{
         this.rollDiv = document.getElementsByClassName("roll")[0];
         this.mainDiv = document.getElementsByClassName("main")[0];
         this.boardDiv = document.getElementsByClassName("board")[0];
-        this.boardoverlayDiv = document.getElementsByClassName("selectplayers")[0];
+        this.boardoverlayDiv = document.getElementsByClassName("boardOverlay")[0];
 
         this.tiles = [];
         this.playerturn = 0;
